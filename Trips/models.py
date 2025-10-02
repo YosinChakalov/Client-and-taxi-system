@@ -12,7 +12,7 @@ class Trips(models.Model):
     seats = models.IntegerField(default=4)
     time = models.IntegerField()
     price = models.IntegerField()
-    available = models.CharField(max_length=60, choices=CHOICES)
+    available = models.CharField(max_length=60, choices=CHOICES, default='available')
     driver_id = models.ForeignKey("Authenticate.User", on_delete=models.CASCADE)
 
     def __str__(self):
