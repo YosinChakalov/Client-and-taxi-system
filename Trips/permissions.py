@@ -8,6 +8,7 @@ class TripPermission(BasePermission):
 
         if request.user.role == "taxi":
             if request.method in ["POST", "PUT", "PATCH", "DELETE", "GET"]:
+
                 return True 
             return False
 
@@ -20,12 +21,10 @@ class TripPermission(BasePermission):
     def has_object_permission(self, request, view, obj):
         if request.user.role == "admin":
             return True
-
         if request.user.role == "taxi":
             if request.method in ["PUT", "PATCH", "DELETE"]:
                 return obj.driver_id == request.user
             return True 
-        
         if request.user.role == "user":
             return request.method == "GET"
         return False
