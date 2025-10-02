@@ -15,3 +15,5 @@ class TripsAPIView(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(driver_id=self.request.user)
+
+    
