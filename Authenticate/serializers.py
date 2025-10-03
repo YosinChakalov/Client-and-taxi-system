@@ -12,3 +12,9 @@ class UserSerializer(ModelSerializer):
             password=validated_data['password']
         )
         return user
+    
+class ProfileSerializer(ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['id', 'name', 'bio', 'user_id', 'status']
+        read_only_fields = ['user_id','status']

@@ -19,7 +19,7 @@ class TripsAPIView(viewsets.ModelViewSet):
     
     filter_backends = [DjangoFilterBackend,SearchFilter]
     
-    filterset_fields = [ 'time','price' ]
+    filterset_fields = [ 'time','price','date' ]
 
     search_fields = ['title', 'from_where', 'to_where', ]
 
