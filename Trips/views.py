@@ -9,10 +9,12 @@ from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 from .pagination import TripPagination
-
+from rest_framework.exceptions import PermissionDenied
+from Bookings.models import Bookings
+from Bookings.serializers import BookingSerializer
 
 class TripsAPIView(viewsets.ModelViewSet):
-    queryset = Trips.objects.filter(available='available')
+    queryset = Trips.objects.all()
     serializer_class = TripsSerializer
     permission_classes = [IsAuthenticated,TripPermission]
     pagination_class = TripPagination
@@ -26,4 +28,15 @@ class TripsAPIView(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(driver_id=self.request.user)
 
-    
+
+class DriverTripBookingsView(generics.ListAPIView):
+    serializer_class = BookingSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        user = self.request.user
+
+        if user.role != 'taxi':
+            raise PermissionDenied("Only taxi drivers can view this.")
+
+        return Bookings.objects.filter(trip__driver_id=user)
