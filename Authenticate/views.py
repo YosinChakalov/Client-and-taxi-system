@@ -33,3 +33,13 @@ class ProfileView(generics.RetrieveAPIView):
             return self.request.user.profile
         except Profile.DoesNotExist:
             raise NotFound("Profile not found for this user.")
+        
+class ProfileEditView(generics.UpdateAPIView):
+    serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        try:
+            return self.request.user.profile
+        except Profile.DoesNotExist:
+            raise NotFound("Profile not found for this user.")
