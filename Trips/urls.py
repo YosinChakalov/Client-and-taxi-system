@@ -7,5 +7,6 @@ router = DefaultRouter()
 router.register(r'Trips', TripsAPIView, basename='trips')
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('', include(router.urls)),
+    path('my-trip-bookings/', DriverTripBookingsView.as_view()),
 ]
