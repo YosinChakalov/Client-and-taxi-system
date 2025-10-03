@@ -10,7 +10,7 @@ class Trips(models.Model):
     to_where = models.CharField(max_length=250)
     date = models.DateField(auto_now_add=True)
     seats = models.IntegerField(default=4)
-    time = models.IntegerField()
+    time = models.TimeField()
     price = models.IntegerField()
     available = models.CharField(max_length=60, choices=CHOICES, default='available')
     driver_id = models.ForeignKey("Authenticate.User", on_delete=models.CASCADE)
