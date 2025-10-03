@@ -30,3 +30,5 @@ class IsOwnerOrAdmin(BasePermission):
             return obj.trip.driver_id == request.user
         
         return False
+    
+    
